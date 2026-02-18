@@ -66,4 +66,58 @@ describe('G9 Certification - Specialist Outpatient Care (SKZZ)', () => {
             cezihService.validateCode('INVALID-001', 'MKB-10')
         ).rejects.toThrow('Invalid or inactive CEZIH code');
     });
+
+    test('SCENARIO 5: Realizacija uputnice - Slanje nalaza bez privitka', async () => {
+        // 1. Setup Data - Appointment without document
+        const patient = await prisma.patient.create({
+            data: {
+                mbo: '999000999',
+                firstName: 'Bez',
+                lastName: 'Dokumenta',
+                birthDate: new Date()
+            }
+        });
+
+        const appt = await prisma.appointment.create({
+            data: {
+                patientId: patient.id,
+                startTime: new Date(),
+                endTime: new Date(),
+                status: 'COMPLETED'
+            }
+        });
+
+        const finding = await prisma.clinicalFinding.create({
+            data: {
+                appointmentId: appt.id,
+                anamnesis: 'Test Anamnesis',
+                statusPraesens: 'Test Status',
+                therapy: 'Test Therapy',
+                // No document attached
+            }
+        });
+
+        // 2. Execute Send Finding
+        const result = await cezihService.sendFinding(finding);
+
+        // 3. Verify Success & Audit Log (that it was sent without binary)
+        expect(result.success).toBe(true);
+        expect(result.message).toContain('successfully sent');
+
+        // Check if DB updated
+        const updatedFinding = await prisma.clinicalFinding.findUnique({ where: { id: finding.id } });
+        expect(updatedFinding?.cezihFindingId).toBe(result.cezihId);
+
+        // Verify Audit Log Payload doesn't contain Base64 block
+        const log = await prisma.cezihMessage.findFirst({
+            where: { type: 'SEND_FINDING', direction: 'OUTGOING', status: 'SENT' },
+            orderBy: { createdAt: 'desc' }
+        });
+
+        expect(log).toBeDefined();
+        // Should NOT contain <nonXMLBody>
+        expect(log?.payload).not.toContain('<nonXMLBody>');
+        // Should contain structured text
+        expect(log?.payload).toContain('Anamneza: Test Anamnesis');
+    });
 });

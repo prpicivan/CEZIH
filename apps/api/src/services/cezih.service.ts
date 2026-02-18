@@ -498,11 +498,57 @@ export class CezihService {
     async sendFinding(encounter: any) {
         console.log('CEZIH: Sending Specialist Finding (Nalaz)...', encounter.id);
 
-        // In a real scenario, this would call the SOAP client
-        // result = await this.client.callMethod('sendFinding', { ... });
+        // Fetch full details if needed
+        let fullEncounter = encounter;
+        if (!encounter.appointment || !encounter.appointment.patient) {
+            fullEncounter = await prisma.clinicalFinding.findUnique({
+                where: { id: encounter.id },
+                include: { appointment: { include: { referral: true, patient: true } } }
+            });
+        }
 
+        if (!fullEncounter || !fullEncounter.appointment) {
+            throw new Error('Cannot send finding: Appointment/Patient data missing.');
+        }
+
+        const patient = fullEncounter.appointment.patient;
+        const referral = fullEncounter.appointment.referral;
+        const doctorId = CEZIH_CONFIG.DEFAULT_DOCTOR_ID; // In real app, from session
+        const timestamp = new Date().toISOString().replace(/[-:T.Z]/g, '').substring(0, 14);
         const cezihId = 'CEZIH-NAL-' + Math.floor(Math.random() * 100000);
-        const xml = `HL7-MOCK-FINDING-PAYLOAD-${encounter.id}-${Date.now()}`;
+
+        // Attachment Logic
+        let attachmentBlock = '';
+        if (fullEncounter.documentData) {
+            attachmentBlock = `
+                        <component>
+                            <nonXMLBody>
+                                <text mediaType="application/pdf" representation="B64">${fullEncounter.documentData}</text>
+                            </nonXMLBody>
+                        </component>`;
+        } else {
+            console.log('CEZIH: Sending Finding WITHOUT attachment (Certification Requirement compliance).');
+        }
+
+        const xml = populateTemplate(HL7_TEMPLATES.SEND_FINDING, {
+            messageId: 'MSG-NAL-' + Date.now(),
+            timestamp,
+            cezihId,
+            documentType: '11502-2', // Laboratory report or similar LOINC
+            patientMbo: patient.mbo,
+            patientName: `${patient.firstName} ${patient.lastName}`,
+            doctorId,
+            diagnosis: fullEncounter.diagnosis || referral?.diagnosis || 'Unknown',
+            findingText: [
+                fullEncounter.anamnesis ? `Anamneza: ${fullEncounter.anamnesis}` : '',
+                fullEncounter.statusPraesens ? `Status: ${fullEncounter.statusPraesens}` : '',
+                fullEncounter.therapy ? `Terapija: ${fullEncounter.therapy}` : '',
+                fullEncounter.text // Legacy or direct text Support
+            ].filter(Boolean).join('\n') || 'Nalaz uredan.',
+            optionalAttachment: attachmentBlock
+        });
+
+        console.log('Generated HL7 XML (POLB_IN000006):\n', xml);
 
         // Audit Logging
         await this.logCezihMessage({
@@ -510,29 +556,15 @@ export class CezihService {
             direction: 'OUTGOING',
             status: 'SENT',
             payload: xml,
-            referralId: encounter.appointment?.referralId || undefined,
-            mbo: encounter.appointment?.patientId ? 'UNKNOWN' : 'UNKNOWN' // best effort
+            referralId: referral?.id || undefined,
+            mbo: patient.mbo
         });
 
-        // We need appointment to get patient info and referral ID properly
-        // Ideally encounter object has it, or we fetch it.
-        // For now relying on what's passed or doing a quick lookup if needed.
-        if (!encounter.appointment) {
-            const found = await prisma.clinicalFinding.findUnique({
-                where: { id: encounter.id },
-                include: { appointment: { include: { referral: true, patient: true } } }
-            });
-            if (found && found.appointment) {
-                await this.logCezihMessage({
-                    type: 'SEND_FINDING',
-                    direction: 'OUTGOING',
-                    status: 'SENT',
-                    payload: xml,
-                    referralId: found.appointment.referralId || undefined,
-                    mbo: found.appointment.patient.mbo
-                });
-            }
-        }
+        // Update finding with CEZIH ID
+        await prisma.clinicalFinding.update({
+            where: { id: fullEncounter.id },
+            data: { cezihFindingId: cezihId }
+        });
 
         return {
             success: true,

@@ -9,6 +9,7 @@ import InvoicePrintView from './pages/InvoicePrintView'
 import RegistryHub from './pages/RegistryHub'
 import InsuranceCheck from './pages/InsuranceCheck'
 import CalendarPage from './pages/CalendarPage' // Import Calendar
+import FiscalizationDashboard from './pages/FiscalizationDashboard' // Import Fiscalization Dashboard
 import './index.css'
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
                                 <NavLink to="/insurance-check" className={navLinkClass}>
                                     Provjera Osiguranja
                                 </NavLink>
+                                <NavLink to="/fiscalization" className={navLinkClass}>
+                                    Fiskalizacija
+                                </NavLink>
                                 <NavLink to="/admin/registries" className={navLinkClass}>
                                     Šifrarnici
                                 </NavLink>
@@ -55,6 +59,7 @@ function App() {
                         <Route path="/gp-portal" element={<GPPortal />} />
                         <Route path="/appointments" element={<AppointmentsPage />} />
                         <Route path="/insurance-check" element={<InsuranceCheck />} />
+                        <Route path="/fiscalization" element={<FiscalizationDashboard />} />
                         <Route path="/findings/new" element={<ClinicalFindingForm />} />
                         <Route path="/invoices/:id/print" element={<InvoicePrintView />} />
                         <Route path="/admin/registries" element={<RegistryHub />} />

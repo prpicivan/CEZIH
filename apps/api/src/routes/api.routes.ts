@@ -7,6 +7,65 @@ const router = Router();
 const cezihService = new CezihService();
 
 // Unified Registry Search
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     RegistryItem:
+ *       type: object
+ *       properties:
+ *         code:
+ *           type: string
+ *           description: Code of the item (MKB10, ATC, or generic)
+ *         name:
+ *           type: string
+ *           description: Name or description of the item
+ *         type:
+ *           type: string
+ *           description: Type of registry (e.g., DIAGNOSIS, MEDICINE)
+ *     InternalReferral:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *         type:
+ *           type: string
+ *         patientId:
+ *           type: string
+ *         procedureCode:
+ *           type: string
+ *         procedureName:
+ *           type: string
+ *         status:
+ *           type: string
+ *           enum: [ISSUED, COMPLETED]
+ * 
+ * /registries/{type}:
+ *   get:
+ *     summary: Search unified registries
+ *     description: Search across MKB10, Medicines, or general CEZIH registries
+ *     parameters:
+ *       - in: path
+ *         name: type
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Registry type (mkb10, meds, medicine, or other CEZIH types)
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search query string
+ *     responses:
+ *       200:
+ *         description: List of registry items
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/RegistryItem'
+ */
 router.get('/registries/:type', async (req, res) => {
     try {
         const { type } = req.params;
@@ -57,6 +116,48 @@ router.get('/registries/:type', async (req, res) => {
 });
 
 // Internal Referrals (Specialist-to-Specialist)
+/**
+ * @swagger
+ * /internal-referrals:
+ *   post:
+ *     summary: Create an internal referral (Specialist-to-Specialist)
+ *     description: Issues an internal referral. Blocks if original referral is type A1.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - originalReferralId
+ *               - procedureCode
+ *               - procedureName
+ *             properties:
+ *               type:
+ *                 type: string
+ *                 default: A2
+ *               originalReferralId:
+ *                 type: string
+ *               procedureCode:
+ *                 type: string
+ *               procedureName:
+ *                 type: string
+ *               department:
+ *                 type: string
+ *               note:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Internal referral created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/InternalReferral'
+ *       403:
+ *         description: Cannot issue internal referral for A1 type
+ *       404:
+ *         description: Original referral not found
+ */
 router.post('/internal-referrals', async (req, res) => {
     try {
         const { type, originalReferralId, procedureCode, procedureName, department, note } = req.body;
@@ -123,6 +224,27 @@ router.post('/internal-referrals', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /internal-referrals/{referralId}:
+ *   get:
+ *     summary: Get internal referrals for a specific referral
+ *     parameters:
+ *       - in: path
+ *         name: referralId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: List of internal referrals
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/InternalReferral'
+ */
 router.get('/internal-referrals/:referralId', async (req, res) => {
     try {
         const results = await (prisma as any).internalReferral.findMany({
@@ -136,6 +258,15 @@ router.get('/internal-referrals/:referralId', async (req, res) => {
 });
 
 // Insurance check endpoint
+/**
+ * @swagger
+ * /cezih/messages:
+ *   get:
+ *     summary: Get CEZIH messages
+ *     responses:
+ *       200:
+ *         description: List of messages
+ */
 router.get('/cezih/messages', async (req, res) => {
     try {
         const messages = await cezihService.getCezihMessages();
@@ -145,6 +276,21 @@ router.get('/cezih/messages', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /cezih/insurance/{mbo}:
+ *   get:
+ *     summary: Check insurance status for MBO
+ *     parameters:
+ *       - in: path
+ *         name: mbo
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Insurance status
+ */
 router.get('/cezih/insurance/:mbo', async (req, res) => {
     try {
         const { mbo } = req.params;
@@ -156,6 +302,26 @@ router.get('/cezih/insurance/:mbo', async (req, res) => {
 });
 
 // Get guidelines for ordering control
+/**
+ * @swagger
+ * /cezih/guidelines:
+ *   get:
+ *     summary: Get guidelines for ordering control
+ *     parameters:
+ *       - in: query
+ *         name: mkb
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: procedure
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Guidelines
+ */
 router.get('/cezih/guidelines', async (req, res) => {
     try {
         const { mkb, procedure } = req.query;
@@ -170,6 +336,25 @@ router.get('/cezih/guidelines', async (req, res) => {
 });
 
 // Get referrals for patient
+/**
+ * @swagger
+ * /referrals/patient/{mbo}:
+ *   get:
+ *     summary: Get referrals for a patient
+ *     parameters:
+ *       - in: path
+ *         name: mbo
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: dept
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: List of referrals
+ */
 router.get('/referrals/patient/:mbo', async (req, res) => {
     try {
         const { mbo } = req.params;
@@ -197,6 +382,47 @@ router.get('/referrals/patient/:mbo', async (req, res) => {
 });
 
 // Create and send referral
+/**
+ * @swagger
+ * /referrals:
+ *   post:
+ *     summary: Create and send a referral
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - patientMbo
+ *               - patientName
+ *               - diagnosisCode
+ *               - procedureCode
+ *               - targetDepartment
+ *             properties:
+ *               type:
+ *                 type: string
+ *                 default: A1
+ *               patientMbo:
+ *                 type: string
+ *               patientName:
+ *                 type: string
+ *               diagnosisCode:
+ *                 type: string
+ *               diagnosisName:
+ *                 type: string
+ *               procedureCode:
+ *                 type: string
+ *               procedureName:
+ *                 type: string
+ *               targetDepartment:
+ *                 type: string
+ *               note:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Referral created
+ */
 router.post('/referrals', async (req, res) => {
     try {
         const referralData = req.body;
@@ -258,6 +484,15 @@ router.post('/referrals', async (req, res) => {
 });
 
 // Get all appointments
+/**
+ * @swagger
+ * /appointments:
+ *   get:
+ *     summary: Get all appointments
+ *     responses:
+ *       200:
+ *         description: List of appointments
+ */
 router.get('/appointments', async (req, res) => {
     try {
         const appointments = await prisma.appointment.findMany({
@@ -285,6 +520,15 @@ router.get('/appointments', async (req, res) => {
 });
 
 // SK Connectivity Check (Level 2)
+/**
+ * @swagger
+ * /appointments/sk/status:
+ *   get:
+ *     summary: Check Central Calendar (SK) connectivity
+ *     responses:
+ *       200:
+ *         description: SK status (Level 2 check)
+ */
 router.get('/appointments/sk/status', async (req, res) => {
     try {
         const status = await cezihService.checkSkConnectivity();
@@ -295,6 +539,21 @@ router.get('/appointments/sk/status', async (req, res) => {
 });
 
 // SK Sync (Level 3)
+/**
+ * @swagger
+ * /appointments/{id}/sync:
+ *   post:
+ *     summary: Sync appointment with Central Calendar (Level 3)
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Sync result
+ */
 router.post('/appointments/:id/sync', async (req, res) => {
     try {
         const result = await cezihService.syncWithCentralCalendar(req.params.id);
@@ -305,6 +564,40 @@ router.post('/appointments/:id/sync', async (req, res) => {
 });
 
 // Create appointment
+/**
+ * @swagger
+ * /appointments:
+ *   post:
+ *     summary: Create an appointment
+ *     description: Creates an appointment. Checks insurance status first (OsigInfo).
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - patientMbo
+ *               - startTime
+ *               - endTime
+ *             properties:
+ *               patientMbo:
+ *                 type: string
+ *               referralId:
+ *                 type: string
+ *                 description: Optional referral ID to link
+ *               startTime:
+ *                 type: string
+ *                 format: date-time
+ *               endTime:
+ *                 type: string
+ *                 format: date-time
+ *     responses:
+ *       200:
+ *         description: Appointment created
+ *       403:
+ *         description: Insurance inactive block
+ */
 router.post('/appointments', async (req, res) => {
     try {
         const { patientMbo, referralId, startTime, endTime } = req.body;
@@ -398,6 +691,33 @@ router.post('/appointments', async (req, res) => {
 });
 
 // Update appointment status
+/**
+ * @swagger
+ * /appointments/{id}:
+ *   patch:
+ *     summary: Update appointment status
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - status
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [scheduled, completed, cancelled, pending]
+ *     responses:
+ *       200:
+ *         description: Appointment updated
+ */
 router.patch('/appointments/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -432,6 +752,21 @@ router.patch('/appointments/:id', async (req, res) => {
 
 // Cancel appointment and revert referral status
 // Delete appointment (Physical delete)
+/**
+ * @swagger
+ * /appointments/{id}:
+ *   delete:
+ *     summary: Delete appointment (Physical delete)
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Appointment deleted
+ */
 router.delete('/appointments/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -444,6 +779,22 @@ router.delete('/appointments/:id', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /appointments/{id}/cancel:
+ *   post:
+ *     summary: Cancel appointment
+ *     description: Cancels appointment and reverts linked referral to POSLANA
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Appointment cancelled and referral reverted
+ */
 router.post('/appointments/:id/cancel', async (req, res) => {
     try {
         const { id } = req.params;
@@ -474,6 +825,20 @@ router.post('/appointments/:id/cancel', async (req, res) => {
 });
 
 // Dashboard - Get all referrals with status
+/**
+ * @swagger
+ * /dashboard:
+ *   get:
+ *     summary: Get dashboard data
+ *     parameters:
+ *       - in: query
+ *         name: dept
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Dashboard data (Referrals with status)
+ */
 router.get('/dashboard', async (req, res) => {
     try {
         const { dept } = req.query;
@@ -506,6 +871,21 @@ router.get('/dashboard', async (req, res) => {
 });
 
 // Appointment Invoicing
+/**
+ * @swagger
+ * /appointments/{id}/invoice:
+ *   post:
+ *     summary: Issue invoice for appointment
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Invoice issued
+ */
 router.post('/appointments/:id/invoice', async (req, res) => {
     try {
         const result = await cezihService.issueAppointmentInvoices(req.params.id);
@@ -532,6 +912,20 @@ router.get('/registries/:type', async (req, res) => {
 });
 
 // MKB-10 Codebook search
+/**
+ * @swagger
+ * /codebooks/mkb10:
+ *   get:
+ *     summary: Search MKB-10 codebook
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: List of MKB-10 codes
+ */
 router.get('/codebooks/mkb10', async (req, res) => {
     try {
         const { search } = req.query;
@@ -556,6 +950,20 @@ router.get('/codebooks/mkb10', async (req, res) => {
 });
 
 // Blue Book Procedures search
+/**
+ * @swagger
+ * /codebooks/procedures:
+ *   get:
+ *     summary: Search procedures codebook (Blue Book)
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: List of procedures
+ */
 router.get('/codebooks/procedures', async (req, res) => {
     try {
         const { search } = req.query;
@@ -584,6 +992,15 @@ router.get('/codebooks/procedures', async (req, res) => {
 });
 
 // Insurance Categories Codebook
+/**
+ * @swagger
+ * /codebooks/insurance-categories:
+ *   get:
+ *     summary: Get insurance categories
+ *     responses:
+ *       200:
+ *         description: List of insurance categories
+ */
 router.get('/codebooks/insurance-categories', async (req, res) => {
     try {
         const categories = [
@@ -600,6 +1017,35 @@ router.get('/codebooks/insurance-categories', async (req, res) => {
 });
 
 // Clinical Findings - Create
+/**
+ * @swagger
+ * /findings:
+ *   post:
+ *     summary: Create clinical finding
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - appointmentId
+ *               - anamnesis
+ *               - statusPraesens
+ *               - therapy
+ *             properties:
+ *               appointmentId:
+ *                 type: string
+ *               anamnesis:
+ *                 type: string
+ *               statusPraesens:
+ *                 type: string
+ *               therapy:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Finding created
+ */
 router.post('/findings', async (req, res) => {
     try {
         const { appointmentId, anamnesis, statusPraesens, therapy } = req.body;
@@ -641,6 +1087,21 @@ router.post('/findings', async (req, res) => {
 });
 
 // Clinical Findings - Send to CEZIH
+/**
+ * @swagger
+ * /findings/{id}/send:
+ *   post:
+ *     summary: Send finding to CEZIH
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Finding sent to CEZIH and referral realized
+ */
 router.post('/findings/:id/send', async (req, res) => {
     try {
         const { id } = req.params;
@@ -687,6 +1148,32 @@ router.post('/findings/:id/send', async (req, res) => {
 });
 
 // Clinical Findings - Storno
+/**
+ * @swagger
+ * /findings/{id}/storno:
+ *   post:
+ *     summary: Storno clinical finding
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - reason
+ *             properties:
+ *               reason:
+ *                 type: string
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Finding cancelled
+ */
 router.post('/findings/:id/storno', async (req, res) => {
     try {
         const { id } = req.params;
@@ -717,6 +1204,21 @@ router.post('/findings/:id/storno', async (req, res) => {
 });
 
 // Clinical Findings - Get FHIR JSON
+/**
+ * @swagger
+ * /findings/{id}/fhir:
+ *   get:
+ *     summary: Get FHIR JSON for finding
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: FHIR JSON
+ */
 router.get('/findings/:id/fhir', async (req, res) => {
     try {
         const { id } = req.params;
@@ -746,6 +1248,27 @@ router.get('/findings/:id/fhir', async (req, res) => {
 });
 
 // Invoices - Issue New Invoice
+/**
+ * @swagger
+ * /invoices/issue:
+ *   post:
+ *     summary: Issue new invoice
+ *     description: Issue invoice handled by CezihService PDSF logic
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - referralId
+ *             properties:
+ *               referralId:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Invoice issued
+ */
 router.post('/invoices/issue', async (req, res) => {
     try {
         const { referralId } = req.body;
@@ -764,6 +1287,30 @@ router.post('/invoices/issue', async (req, res) => {
 });
 
 // Invoices - Batch Processing
+/**
+ * @swagger
+ * /invoices/batch:
+ *   post:
+ *     summary: Process batch invoices
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - invoiceIds
+ *             properties:
+ *               invoiceIds:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               batchType:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Batch processed
+ */
 router.post('/invoices/batch', async (req, res) => {
     try {
         const { invoiceIds, batchType } = req.body;
@@ -780,6 +1327,15 @@ router.post('/invoices/batch', async (req, res) => {
 });
 
 // Invoices - Statistics/Reporting
+/**
+ * @swagger
+ * /invoices/stats:
+ *   get:
+ *     summary: Get invoice statistics
+ *     responses:
+ *       200:
+ *         description: Invoice statistics
+ */
 router.get('/invoices/stats', async (req, res) => {
     try {
         const stats = await prisma.invoice.groupBy({
@@ -794,6 +1350,15 @@ router.get('/invoices/stats', async (req, res) => {
 });
 
 // Registries - Invoices & Errors
+/**
+ * @swagger
+ * /registries/billing:
+ *   get:
+ *     summary: Get billing registries
+ *     responses:
+ *       200:
+ *         description: Billing registries
+ */
 router.get('/registries/billing', async (req, res) => {
     try {
         const registries = await prisma.cezihRegistry.findMany({

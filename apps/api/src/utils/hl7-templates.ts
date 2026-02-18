@@ -132,6 +132,59 @@ export const HL7_TEMPLATES = {
         {{batchContent}}
     </content>
 </MCCI_IN000002>
+`.trim(),
+
+    // POLB_IN000006: Send Medical Document (Nalaz)
+    // NOTE: This structure allows for text-only (structuredBody) or attachment (nonXMLBody)
+    // We use a simplified structure here where {{findingContent}} is injected.
+    // {{findingContent}} will contain the actual <component> block based on whether we have a doc or not.
+    SEND_FINDING: `
+<POLB_IN000006 xmlns="urn:hl7-org:v3">
+    <id extension="{{messageId}}" root="2.16.840.1.113883.2.7.1.1"/>
+    <creationTime value="{{timestamp}}"/>
+    <interactionId extension="POLB_IN000006" root="2.16.840.1.113883.1.6"/>
+    <controlActProcess classCode="ACTN" moodCode="EVN">
+        <subject typeCode="SUBJ">
+            <clinicalDocument classCode="DOCCLIN" moodCode="EVN">
+                <id extension="{{cezihId}}" root="2.16.840.1.113883.2.7.9.1"/>
+                <code code="{{documentType}}" codeSystem="2.16.840.1.113883.2.7.9.2"/>
+                <effectiveTime value="{{timestamp}}"/>
+                <recordTarget typeCode="RCT">
+                    <patient classCode="PAT">
+                        <id extension="{{patientMbo}}" root="2.16.840.1.113883.2.7.4.1"/>
+                        <patientPerson>
+                            <name>{{patientName}}</name>
+                        </patientPerson>
+                    </patient>
+                </recordTarget>
+                <author typeCode="AUT">
+                    <assignedEntity>
+                        <id extension="{{doctorId}}" root="2.16.840.1.113883.2.7.5.1"/>
+                    </assignedEntity>
+                </author>
+                <component>
+                    <structuredBody>
+                        <component>
+                            <section>
+                                <code code="DIAG" codeSystem="2.16.840.1.113883.2.7.9.3"/>
+                                <title>Diagnosis</title>
+                                <text>{{diagnosis}}</text>
+                            </section>
+                        </component>
+                        <component>
+                            <section>
+                                <code code="FIND" codeSystem="2.16.840.1.113883.2.7.9.3"/>
+                                <title>Clinical Finding</title>
+                                <text>{{findingText}}</text>
+                            </section>
+                        </component>
+                        {{optionalAttachment}}
+                    </structuredBody>
+                </component>
+            </clinicalDocument>
+        </subject>
+    </controlActProcess>
+</POLB_IN000006>
 `.trim()
 };
 

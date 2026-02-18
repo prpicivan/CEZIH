@@ -158,6 +158,7 @@ model Invoice {
   sentAt         DateTime?
   appointment    Appointment? @relation(fields: [appointmentId], references: [id])
   referral       Referral?    @relation(fields: [referralId], references: [id])
+  fiscalizationLogs FiscalizationLog[]
 }
 
 model InvoiceBatch {
@@ -234,4 +235,36 @@ model Mkb10 {
 
   @@index([code])
   @@index([name])
+}
+
+model FiscalizationLog {
+  id            String   @id @default(uuid())
+  uuid          String   @unique // Message ID provided in header
+  invoiceNumber String?
+  businessSpace String?
+  paymentDevice String?
+  
+  status        String   // SUCCESS, ERROR
+  
+  // Request Details
+  requestXml    String   // Signed XML
+  zki           String?  // Calculated ZKI
+  
+  // Response Details
+  responseXml   String?  // Raw Response
+  jir           String?  // Returned JIR
+  
+  // Errors
+  errors        String?  // JSON string or error message
+  
+  createdAt     DateTime @default(now())
+
+  // Optional link to internal Invoice if needed
+  invoiceId     String?
+  invoice       Invoice? @relation(fields: [invoiceId], references: [id])
+
+  @@index([uuid])
+  @@index([invoiceNumber])
+  @@index([status])
+  @@index([createdAt])
 }

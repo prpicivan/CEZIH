@@ -24,6 +24,7 @@ import {
     type Appointment,
     type Referral
 } from '../services/api';
+import PatientInsuranceCard from '../components/PatientInsuranceCard';
 import { useNavigate } from 'react-router-dom';
 
 const BUSINESS_HOURS_START = 7;
@@ -115,10 +116,20 @@ export default function CalendarPage() {
 
         setWizardLoading(true);
         try {
-            // Check Patient/Insurance first
+            // Check Patient/Insurance first and show Card
             const insurance = await getExtendedInsurance(bookingMbo);
             setPatientContext(insurance);
+            setWizardStep(1.5); // Go to Verification Step
+        } catch (error: any) {
+            alert('Error fetching patient data: ' + error.message);
+        } finally {
+            setWizardLoading(false);
+        }
+    };
 
+    const handleVerificationContinue = async () => {
+        setWizardLoading(true);
+        try {
             if (visitType === 'HZZO') {
                 // Fetch Referrals only for HZZO
                 const referrals = await getReferralsForPatient(bookingMbo);
@@ -128,14 +139,15 @@ export default function CalendarPage() {
                 // Private: Skip Referral Selection
                 setAvailableReferrals([]);
                 setSelectedReferral(null);
-                setWizardStep(3); // Go directly to Confirm (We need to ensure Step 3 exists/works)
+                setWizardStep(3); // Go directly to Confirm
             }
         } catch (error: any) {
-            alert('Error fetching patient data: ' + error.message);
+            alert('Error fetching referrals: ' + error.message);
         } finally {
             setWizardLoading(false);
         }
     };
+
 
     const handleBookingConfirm = async () => {
         if (!selectedSlot || !patientContext) return;
@@ -763,6 +775,29 @@ export default function CalendarPage() {
                                         </div>
                                     </div>
                                 </form>
+                            )}
+
+                            {/* Step 1.5: Insurance Verification */}
+                            {wizardStep === 1.5 && patientContext && (
+                                <div className="space-y-4">
+                                    <PatientInsuranceCard patient={patientContext} compact={true} />
+
+                                    <div className="flex gap-2 pt-2">
+                                        <button
+                                            onClick={() => setWizardStep(1)}
+                                            className="px-4 py-3 text-slate-500 font-bold hover:bg-slate-50 rounded-xl"
+                                        >
+                                            Back
+                                        </button>
+                                        <button
+                                            onClick={handleVerificationContinue}
+                                            disabled={wizardLoading}
+                                            className="flex-1 bg-cyan-600 text-white py-3 rounded-xl font-bold hover:bg-cyan-700 disabled:bg-slate-300 transition-colors shadow-lg shadow-cyan-200"
+                                        >
+                                            {wizardLoading ? 'Loading...' : 'Confirm Identity & Continue'}
+                                        </button>
+                                    </div>
+                                </div>
                             )}
 
                             {/* Step 2: Referral Selection (HZZO Only) */}
