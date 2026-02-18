@@ -1,0 +1,237 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Patient {
+  id                String                 @id @default(uuid())
+  mbo               String                 @unique
+  firstName         String
+  lastName          String
+  birthDate         DateTime
+  
+  // Phase 3 Extensions
+  hasSupplemental   Boolean                @default(false)
+  policyStatus      String?                // ACTIVE, INACTIVE
+  policyNumber      String?
+  validUntil        DateTime?
+  insuranceCategory String?                // AO, OB, ...
+  gender            String?                // M, F
+  isVeteran         Boolean                @default(false)
+  weaponHolder      Boolean?               @default(false)
+  isIsolated        Boolean                @default(false)
+  
+  createdAt         DateTime               @default(now())
+  appointments      Appointment[]
+  referrals         Referral[]
+  internalReferrals InternalReferral[]
+  recommendations   TherapyRecommendation[]
+}
+
+model Appointment {
+  id              String           @id @default(uuid())
+  patientId       String
+  startTime       DateTime
+  endTime         DateTime
+  status          String
+  referralId      String?
+  internalReferralId String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  referral        Referral?        @relation(fields: [referralId], references: [id])
+  internalReferral InternalReferral? @relation(fields: [internalReferralId], references: [id])
+  patient         Patient          @relation(fields: [patientId], references: [id])
+  clinicalFinding ClinicalFinding?
+  invoices        Invoice[]
+  
+  // Phase 4: Central Calendar (SK)
+  skSyncedAt      DateTime?
+  skId            String?          @unique
+
+  recommendations TherapyRecommendation[]
+  
+  // Insurance Snapshot (at time of booking)
+  insuranceStatus   String?          // ACTIVE, INACTIVE
+  insuranceCategory String?
+  hasSupplemental   Boolean?         @default(false)
+
+  // Referral Snapshot (Frozen at booking time)
+  referralDiagnosis   String?   // MKB Code + Name
+  referralProcedure   String?   // Procedure Code + Name
+  referralType        String?   // A1, D1...
+  referralNote        String?   // Clinical Note
+}
+
+model Referral {
+  id               String        @id @default(uuid())
+  cezihReferralId  String?       @unique
+  patientId        String
+  patientMbo       String
+  patientName      String
+  diagnosisCode    String
+  diagnosisName    String?
+  procedureCode    String
+  procedureName    String?
+  targetDepartment String
+  type             String        @default("A1") // A1 (Consultative), D1 (Specialist Treatment)
+  note             String?
+  status           String
+  isTakenOver      Boolean       @default(false)
+  takenOverBy      String?
+  takeoverTime     DateTime?
+  createdAt        DateTime      @default(now())
+  realizedAt       DateTime?
+  appointments     Appointment[]
+  internalReferrals InternalReferral[]
+  invoices         Invoice[]
+  cezihMessages    CezihMessage[]
+  patient          Patient       @relation(fields: [patientId], references: [id])
+}
+
+model InternalReferral {
+  id                 String   @id @default(uuid())
+  type               String   // PT, CTRL
+  patientId          String
+  patient            Patient  @relation(fields: [patientId], references: [id])
+  originalReferralId String
+  originalReferral   Referral @relation(fields: [originalReferralId], references: [id])
+  procedureCode      String
+  procedureName      String
+  diagnosisCode      String?
+  diagnosisName      String?
+  department         String
+  note               String?
+  status             String   @default("ISSUED")
+  createdAt          DateTime @default(now())
+  appointments       Appointment[]
+}
+
+model CezihRegistry {
+  id          String   @id @default(uuid())
+  type        String
+  code        String
+  name        String
+  description String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@unique([type, code])
+  @@index([type])
+  @@index([code])
+}
+
+model ClinicalFinding {
+  id             String      @id @default(uuid())
+  appointmentId  String      @unique
+  anamnesis      String
+  statusPraesens String
+  therapy        String
+  signedAt       DateTime?
+  cezihFindingId String?
+  createdAt      DateTime    @default(now())
+  appointment    Appointment @relation(fields: [appointmentId], references: [id])
+}
+
+model Invoice {
+  id             String       @id @default(uuid())
+  referralId     String?      
+  appointmentId  String?      
+  
+  batchId        String?
+  batch          InvoiceBatch? @relation(fields: [batchId], references: [id])
+  
+  amount         Float
+  type           String       @default("SKZZ")
+  status         String       // ISSUED, SENT_TO_CEZIH, PAID, REJECTED
+  cezihInvoiceId String?
+  errorCode      String?
+  
+  payer          String       @default("HZZO") // HZZO, PATIENT
+  payerName      String?
+  description    String?      // e.g. Specialist Examination (OPHTHAL)
+  
+  createdAt      DateTime     @default(now())
+  sentAt         DateTime?
+  appointment    Appointment? @relation(fields: [appointmentId], references: [id])
+  referral       Referral?    @relation(fields: [referralId], references: [id])
+}
+
+model InvoiceBatch {
+  id            String    @id @default(uuid())
+  cezihBatchId  String?   @unique
+  status        String    // OPEN, PROCESSING, SENT, COMPLETED, FAILED
+  type          String    // HZZO_F1, HZZO_F2...
+  invoices      Invoice[]
+  createdAt     DateTime  @default(now())
+  sentAt        DateTime?
+}
+
+model Medicine {
+  id              String                 @id @default(uuid())
+  atcCode         String                 @unique
+  name            String                 // Zaštićeno ime (Product Name)
+  genericName     String?                // Nezaštićeno ime (Generic Name)
+  manufacturer    String
+  isSupplemental  Boolean                @default(false) // Basic (False) or Supplemental (True) list
+  active          Boolean                @default(true)
+  recommendations TherapyRecommendation[]
+
+  @@index([name])
+  @@index([genericName])
+  @@index([atcCode])
+}
+
+model TherapyRecommendation {
+  id            String      @id @default(uuid())
+  appointmentId String
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  patientId     String
+  patient       Patient     @relation(fields: [patientId], references: [id])
+  medicineId    String
+  medicine      Medicine    @relation(fields: [medicineId], references: [id])
+  dosage        String
+  duration      String?
+  note          String?
+  cezihId       String?     @unique
+  createdAt     DateTime    @default(now())
+
+  @@unique([appointmentId, medicineId])
+}
+model CezihMessage {
+  id              String   @id @default(uuid())
+  type            String   // SEND_REFERRAL, SYNC_SK, SEND_INVOICE, etc.
+  direction       String   // OUTGOING, INCOMING
+  status          String   // PENDING, SENT, FAILED, TIMEOUT
+  payload         String   // Raw HL7/SOAP XML or JSON
+  response        String?  // Raw Response
+  errorMessage    String?
+  retryCount      Int      @default(0)
+  maxRetries      Int      @default(3)
+  lastAttemptAt   DateTime?
+  
+  referralId      String?
+  referral        Referral? @relation(fields: [referralId], references: [id])
+  appointmentId   String?
+  invoiceId       String?
+  patientMbo      String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([status])
+  @@index([patientMbo])
+}
+
+model Mkb10 {
+  id        String   @id @default(uuid())
+  code      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+
+  @@index([code])
+  @@index([name])
+}

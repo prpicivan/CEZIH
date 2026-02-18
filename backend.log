@@ -1,0 +1,1576 @@
+
+> cezih-healthcare-system@1.0.0 dev:api
+> npm run dev --workspace=apps/api
+
+
+> @cezih/api@1.0.0 dev
+> tsx watch src/index.ts
+
+🚀 CEZIH Healthcare API listening on http://localhost:3009
+2026-02-17T20:48:21.729Z - GET /api/appointments
+2026-02-17T20:48:21.730Z - GET /api/appointments
+2026-02-17T20:48:26.098Z - GET /api/dashboard
+2026-02-17T20:48:26.100Z - GET /api/codebooks/insurance-categories
+2026-02-17T20:48:26.102Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-17T20:48:26.104Z - GET /api/dashboard
+2026-02-17T20:48:26.104Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-17T20:48:26.105Z - GET /api/codebooks/insurance-categories
+DASHBOARD: Returning 38 referrals (Filtered by: ALL)
+DASHBOARD: Returning 38 referrals (Filtered by: ALL)
+2026-02-17T20:48:26.113Z - GET /api/cezih/messages
+2026-02-17T20:48:26.153Z - GET /api/cezih/messages
+2026-02-17T20:48:28.192Z - GET /api/appointments
+2026-02-17T20:48:28.193Z - GET /api/appointments
+2026-02-17T20:48:29.159Z - GET /api/codebooks/mkb10?search=
+2026-02-17T20:48:29.660Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-17T20:48:29.661Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-17T20:48:29.662Z - GET /api/appointments
+2026-02-17T20:48:29.662Z - GET /api/appointments
+2026-02-17T20:48:31.265Z - GET /api/appointments
+2026-02-17T20:48:31.266Z - GET /api/appointments
+2026-02-17T20:49:18.146Z - GET /api/appointments
+2026-02-17T20:52:47.846Z - GET /api/codebooks/mkb10?search=
+2026-02-17T20:52:53.954Z - GET /api/cezih/insurance/410003569
+Checking Insurance for MBO: '410003569'
+2026-02-17T20:53:12.326Z - GET /api/cezih/guidelines?mkb=A06.1&procedure=400120
+CEZIH: DohvatiSmjernice for MKB:A06.1, KZN:400120...
+2026-02-17T20:53:17.650Z - POST /api/referrals
+DB: Creating referral record for patient: ee7eddec-b91f-4eec-ae09-0abb5e4504cc
+GP: Sending Referral (Structuring HL7)... {
+  patientMbo: '410003569',
+  birthDate: '',
+  patientName: 'Marko Marić',
+  targetDepartment: 'CARD',
+  diagnosisCode: 'A06.1',
+  diagnosisName: 'Kronična crijevna amebijaza',
+  procedureCode: '400120',
+  procedureName: 'EKG',
+  note: '',
+  type: 'A1'
+}
+Generated HL7 XML (POLB_IN990031):
+ <POLB_IN990031 xmlns="urn:hl7-org:v3">
+    <id extension="MSG-1771361597655" root="2.16.840.1.113883.2.7.1.1"/>
+    <creationTime value="20260217205317"/>
+    <interactionId extension="POLB_IN990031" root="2.16.840.1.113883.1.6"/>
+    <processingCode code="P"/>
+    <processingModeCode code="T"/>
+    <acceptAckCode code="AL"/>
+    <receiver typeCode="RCV">
+        <device classCode="DEV" determinerCode="INSTANCE">
+            <id extension="CEZIH" root="2.16.840.1.113883.2.7.2.1"/>
+        </device>
+    </receiver>
+    <sender typeCode="SND">
+        <device classCode="DEV" determinerCode="INSTANCE">
+            <id extension="WBS-PLAT-01" root="2.16.840.1.113883.2.7.2.1"/>
+        </device>
+    </sender>
+    <controlActProcess classCode="ACTN" moodCode="EVN">
+        <subject typeCode="SUBJ">
+            <referral classCode="PCPR" moodCode="INT">
+                <id extension="REF-1771361597655" root="2.16.840.1.113883.2.7.3.1"/>
+                <code code="A1" codeSystem="2.16.840.1.113883.2.7.3.2"/>
+                <statusCode code="active"/>
+                <effectiveTime>
+                    <low value="20260217205317"/>
+                </effectiveTime>
+                <recordTarget typeCode="RCT">
+                    <patient classCode="PAT">
+                        <id extension="410003569" root="2.16.840.1.113883.2.7.4.1"/>
+                        <patientPerson>
+                            <name>Marko Marić</name>
+                        </patientPerson>
+                    </patient>
+                </recordTarget>
+                <author typeCode="AUT">
+                    <assignedEntity>
+                        <id extension="DR-WBS-01" root="2.16.840.1.113883.2.7.5.1"/>
+                    </assignedEntity>
+                </author>
+                <reason>
+                    <observation classCode="OBS" moodCode="EVN">
+                        <code code="DX" codeSystem="2.16.840.1.113883.2.7.6.1"/>
+                        <value code="A06.1" codeSystem="2.16.840.1.113883.6.3"/>
+                    </observation>
+                </reason>
+            </referral>
+        </subject>
+    </controlActProcess>
+</POLB_IN990031>
+DB: Referral created and sent successfully: 1578ad76-3da4-43f8-b1c7-3b872b493386
+2026-02-17T20:53:22.814Z - GET /api/appointments
+2026-02-17T20:53:22.815Z - GET /api/appointments
+2026-02-17T20:53:26.960Z - GET /api/referrals/patient/410003569
+Searching referrals for MBO: 410003569 Dept Filter: undefined [UNIQUE_TAG_V2]
+2026-02-17T20:53:26.961Z - GET /api/insurance/extended/410003569
+CEZIH: OsigInfo lookup for MBO 410003569...
+2026-02-17T20:53:31.280Z - POST /api/appointments
+=== APPOINTMENT CREATION REQUEST ===
+patientMbo: 410003569 type: string length: 9
+referralId: 1578ad76-3da4-43f8-b1c7-3b872b493386 type: string
+startTime: 2026-02-17T08:30:00.000Z
+endTime: 2026-02-17T08:45:00.000Z
+CEZIH: OsigInfo lookup for MBO 410003569...
+2026-02-17T20:53:31.300Z - GET /api/appointments
+2026-02-17T20:54:00.834Z - GET /api/appointments
+2026-02-17T20:55:32.474Z - GET /api/appointments
+2026-02-17T20:56:07.760Z - GET /api/appointments
+2026-02-17T20:56:26.413Z - GET /api/referrals
+2026-02-17T20:56:37.801Z - GET /api/appointments
+2026-02-17T20:59:53.819Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-17T20:59:53.821Z - GET /api/appointments
+2026-02-17T20:59:53.821Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-17T20:59:53.821Z - GET /api/appointments
+2026-02-18T07:37:35.672Z - GET /api/appointments
+2026-02-18T07:37:35.674Z - GET /api/appointments
+2026-02-18T07:38:27.865Z - GET /api/appointments
+2026-02-18T07:42:43.991Z - GET /api/codebooks/insurance-categories
+2026-02-18T07:42:43.991Z - GET /api/codebooks/insurance-categories
+2026-02-18T07:42:43.991Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:42:43.992Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:42:43.992Z - GET /api/dashboard
+2026-02-18T07:42:43.992Z - GET /api/dashboard
+DASHBOARD: Returning 39 referrals (Filtered by: ALL)
+DASHBOARD: Returning 39 referrals (Filtered by: ALL)
+2026-02-18T07:42:44.005Z - GET /api/cezih/messages
+2026-02-18T07:42:44.029Z - GET /api/cezih/messages
+2026-02-18T07:42:44.485Z - GET /api/dashboard
+2026-02-18T07:42:44.486Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:42:44.486Z - GET /api/codebooks/insurance-categories
+2026-02-18T07:42:44.486Z - GET /api/dashboard
+2026-02-18T07:42:44.486Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:42:44.487Z - GET /api/codebooks/insurance-categories
+DASHBOARD: Returning 39 referrals (Filtered by: ALL)
+DASHBOARD: Returning 39 referrals (Filtered by: ALL)
+2026-02-18T07:42:44.497Z - GET /api/cezih/messages
+2026-02-18T07:42:44.532Z - GET /api/cezih/messages
+2026-02-18T07:45:03.606Z - GET /api/appointments
+2026-02-18T07:45:03.606Z - GET /api/appointments
+2026-02-18T07:45:50.722Z - GET /api/appointments
+2026-02-18T07:45:57.698Z - GET /api/appointments
+2026-02-18T07:51:30.373Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:51:30.374Z - GET /api/dashboard
+2026-02-18T07:51:30.375Z - GET /api/codebooks/insurance-categories
+2026-02-18T07:51:30.376Z - GET /api/dashboard
+2026-02-18T07:51:30.377Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:51:30.377Z - GET /api/codebooks/insurance-categories
+DASHBOARD: Returning 39 referrals (Filtered by: ALL)
+DASHBOARD: Returning 39 referrals (Filtered by: ALL)
+2026-02-18T07:51:30.388Z - GET /api/cezih/messages
+2026-02-18T07:51:30.435Z - GET /api/cezih/messages
+2026-02-18T07:51:33.010Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:51:33.014Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:51:33.015Z - GET /api/appointments
+2026-02-18T07:51:33.016Z - GET /api/appointments
+2026-02-18T07:51:34.152Z - GET /api/appointments
+2026-02-18T07:51:34.153Z - GET /api/appointments
+2026-02-18T07:51:36.074Z - GET /api/appointments
+2026-02-18T07:51:44.227Z - GET /api/appointments
+2026-02-18T07:53:31.252Z - GET /api/appointments
+2026-02-18T07:53:31.374Z - GET /api/appointments
+2026-02-18T07:54:22.071Z - GET /api/insurance/extended/123456789
+CEZIH: OsigInfo lookup for MBO 123456789...
+2026-02-18T07:54:25.191Z - POST /api/appointments
+=== APPOINTMENT CREATION REQUEST ===
+patientMbo: 123456789 type: string length: 9
+referralId: undefined type: undefined
+startTime: 2026-02-18T07:45:00.000Z
+endTime: 2026-02-18T08:00:00.000Z
+CEZIH: OsigInfo lookup for MBO 123456789...
+2026-02-18T07:54:25.211Z - GET /api/appointments
+2026-02-18T07:57:10.824Z - GET /api/codebooks/mkb10?search=
+2026-02-18T07:57:12.259Z - GET /api/appointments
+2026-02-18T07:57:12.260Z - GET /api/appointments
+2026-02-18T07:57:12.261Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:57:12.262Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:57:14.153Z - GET /api/registries/mkb10?search=
+2026-02-18T07:57:41.803Z - GET /api/appointments
+2026-02-18T07:57:50.706Z - GET /api/appointments
+2026-02-18T07:58:10.381Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T07:58:10.386Z - GET /api/codebooks/insurance-categories
+2026-02-18T07:58:10.386Z - GET /api/dashboard
+2026-02-18T07:58:10.387Z - GET /api/dashboard
+2026-02-18T07:58:10.387Z - GET /api/codebooks/insurance-categories
+2026-02-18T07:58:10.388Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 39 referrals (Filtered by: ALL)
+DASHBOARD: Returning 39 referrals (Filtered by: ALL)
+2026-02-18T07:58:10.402Z - GET /api/cezih/messages
+2026-02-18T07:58:10.443Z - GET /api/cezih/messages
+2026-02-18T07:58:13.267Z - GET /api/appointments
+2026-02-18T07:58:13.268Z - GET /api/appointments
+2026-02-18T07:58:41.315Z - GET /api/appointments
+2026-02-18T07:58:41.331Z - GET /api/appointments
+2026-02-18T08:00:11.796Z - GET /api/appointments
+2026-02-18T08:00:11.796Z - GET /api/appointments
+2026-02-18T08:00:11.897Z - GET /api/appointments
+2026-02-18T08:00:11.898Z - GET /api/appointments
+2026-02-18T08:00:42.130Z - GET /api/appointments
+2026-02-18T08:00:42.199Z - GET /api/appointments
+2026-02-18T08:01:10.621Z - GET /api/codebooks/mkb10?search=
+2026-02-18T08:01:18.590Z - GET /api/cezih/insurance/963214587
+Checking Insurance for MBO: '963214587'
+2026-02-18T08:01:29.356Z - GET /api/cezih/guidelines?mkb=A00&procedure=100201
+CEZIH: DohvatiSmjernice for MKB:A00, KZN:100201...
+2026-02-18T08:01:38.372Z - POST /api/referrals
+DB: Creating referral record for patient: 6fb1b37e-1607-434c-bece-27b4d3bb2f5c
+GP: Sending Referral (Structuring HL7)... {
+  patientMbo: '963214587',
+  birthDate: '',
+  patientName: 'Marko Marić',
+  targetDepartment: 'IM',
+  diagnosisCode: 'A00',
+  diagnosisName: 'Kolera',
+  procedureCode: '100201',
+  procedureName: 'Ponovni pregled doktora medicine specijaliste',
+  note: 'Provjeriti tlak.',
+  type: 'A1'
+}
+Generated HL7 XML (POLB_IN990031):
+ <POLB_IN990031 xmlns="urn:hl7-org:v3">
+    <id extension="MSG-1771401698380" root="2.16.840.1.113883.2.7.1.1"/>
+    <creationTime value="20260218080138"/>
+    <interactionId extension="POLB_IN990031" root="2.16.840.1.113883.1.6"/>
+    <processingCode code="P"/>
+    <processingModeCode code="T"/>
+    <acceptAckCode code="AL"/>
+    <receiver typeCode="RCV">
+        <device classCode="DEV" determinerCode="INSTANCE">
+            <id extension="CEZIH" root="2.16.840.1.113883.2.7.2.1"/>
+        </device>
+    </receiver>
+    <sender typeCode="SND">
+        <device classCode="DEV" determinerCode="INSTANCE">
+            <id extension="WBS-PLAT-01" root="2.16.840.1.113883.2.7.2.1"/>
+        </device>
+    </sender>
+    <controlActProcess classCode="ACTN" moodCode="EVN">
+        <subject typeCode="SUBJ">
+            <referral classCode="PCPR" moodCode="INT">
+                <id extension="REF-1771401698380" root="2.16.840.1.113883.2.7.3.1"/>
+                <code code="A1" codeSystem="2.16.840.1.113883.2.7.3.2"/>
+                <statusCode code="active"/>
+                <effectiveTime>
+                    <low value="20260218080138"/>
+                </effectiveTime>
+                <recordTarget typeCode="RCT">
+                    <patient classCode="PAT">
+                        <id extension="963214587" root="2.16.840.1.113883.2.7.4.1"/>
+                        <patientPerson>
+                            <name>Marko Marić</name>
+                        </patientPerson>
+                    </patient>
+                </recordTarget>
+                <author typeCode="AUT">
+                    <assignedEntity>
+                        <id extension="DR-WBS-01" root="2.16.840.1.113883.2.7.5.1"/>
+                    </assignedEntity>
+                </author>
+                <reason>
+                    <observation classCode="OBS" moodCode="EVN">
+                        <code code="DX" codeSystem="2.16.840.1.113883.2.7.6.1"/>
+                        <value code="A00" codeSystem="2.16.840.1.113883.6.3"/>
+                    </observation>
+                </reason>
+            </referral>
+        </subject>
+    </controlActProcess>
+</POLB_IN990031>
+DB: Referral created and sent successfully: 0414323f-abb3-4367-b72e-f9db2ca459c2
+2026-02-18T08:01:43.030Z - GET /api/appointments
+2026-02-18T08:01:43.032Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:01:43.033Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:01:43.033Z - GET /api/appointments
+2026-02-18T08:01:44.789Z - GET /api/appointments
+2026-02-18T08:01:44.790Z - GET /api/appointments
+2026-02-18T08:02:26.857Z - GET /api/appointments
+2026-02-18T08:02:26.985Z - GET /api/appointments
+2026-02-18T08:02:36.893Z - GET /api/appointments
+2026-02-18T08:02:36.893Z - GET /api/appointments
+2026-02-18T08:02:56.712Z - GET /api/appointments
+2026-02-18T08:02:56.712Z - GET /api/appointments
+2026-02-18T08:02:57.515Z - GET /api/appointments
+2026-02-18T08:02:57.515Z - GET /api/appointments
+2026-02-18T08:05:13.242Z - GET /api/appointments
+2026-02-18T08:05:13.250Z - GET /api/appointments
+2026-02-18T08:06:11.241Z - GET /api/appointments
+2026-02-18T08:06:11.242Z - GET /api/appointments
+2026-02-18T08:10:09.066Z - GET /api/appointments
+2026-02-18T08:10:09.068Z - GET /api/appointments
+2026-02-18T08:10:17.027Z - GET /api/appointments
+2026-02-18T08:10:17.028Z - GET /api/appointments
+2026-02-18T08:10:22.923Z - GET /api/appointments
+2026-02-18T08:10:23.002Z - GET /api/appointments
+2026-02-18T08:11:25.976Z - GET /api/appointments
+2026-02-18T08:11:25.977Z - GET /api/appointments
+2026-02-18T08:11:26.895Z - GET /api/appointments
+2026-02-18T08:11:26.896Z - GET /api/appointments
+2026-02-18T08:11:54.812Z - GET /api/appointments
+2026-02-18T08:12:12.039Z - GET /api/appointments
+2026-02-18T08:12:28.539Z - GET /api/appointments
+2026-02-18T08:12:49.435Z - GET /api/appointments
+2026-02-18T08:13:07.680Z - GET /api/appointments
+2026-02-18T08:13:30.907Z - DELETE /api/appointments/350d0d2c-cb02-42ad-80d8-b64b23fc7b98
+2026-02-18T08:14:15.245Z - DELETE /api/appointments/350d0d2c-cb02-42ad-80d8-b64b23fc7b98
+2026-02-18T08:15:32.721Z - GET /api/appointments
+2026-02-18T08:16:54.317Z - GET /api/appointments
+2026-02-18T08:16:54.318Z - GET /api/appointments
+2026-02-18T08:17:10.635Z - GET /api/codebooks/mkb10?search=
+2026-02-18T08:17:17.726Z - GET /api/cezih/insurance/413569871
+Checking Insurance for MBO: '413569871'
+2026-02-18T08:17:25.067Z - GET /api/cezih/guidelines?mkb=A00&procedure=100201
+CEZIH: DohvatiSmjernice for MKB:A00, KZN:100201...
+2026-02-18T08:17:30.376Z - POST /api/referrals
+DB: Creating referral record for patient: 23372fb1-ee9a-4b8f-b229-e1a702dac6c4
+GP: Sending Referral (Structuring HL7)... {
+  patientMbo: '413569871',
+  birthDate: '',
+  patientName: 'Marko Marić',
+  targetDepartment: 'PED',
+  diagnosisCode: 'A00',
+  diagnosisName: 'Kolera',
+  procedureCode: '100201',
+  procedureName: 'Ponovni pregled doktora medicine specijaliste',
+  note: 'Provjeriti tlak. ',
+  type: 'A1'
+}
+Generated HL7 XML (POLB_IN990031):
+ <POLB_IN990031 xmlns="urn:hl7-org:v3">
+    <id extension="MSG-1771402650381" root="2.16.840.1.113883.2.7.1.1"/>
+    <creationTime value="20260218081730"/>
+    <interactionId extension="POLB_IN990031" root="2.16.840.1.113883.1.6"/>
+    <processingCode code="P"/>
+    <processingModeCode code="T"/>
+    <acceptAckCode code="AL"/>
+    <receiver typeCode="RCV">
+        <device classCode="DEV" determinerCode="INSTANCE">
+            <id extension="CEZIH" root="2.16.840.1.113883.2.7.2.1"/>
+        </device>
+    </receiver>
+    <sender typeCode="SND">
+        <device classCode="DEV" determinerCode="INSTANCE">
+            <id extension="WBS-PLAT-01" root="2.16.840.1.113883.2.7.2.1"/>
+        </device>
+    </sender>
+    <controlActProcess classCode="ACTN" moodCode="EVN">
+        <subject typeCode="SUBJ">
+            <referral classCode="PCPR" moodCode="INT">
+                <id extension="REF-1771402650381" root="2.16.840.1.113883.2.7.3.1"/>
+                <code code="A1" codeSystem="2.16.840.1.113883.2.7.3.2"/>
+                <statusCode code="active"/>
+                <effectiveTime>
+                    <low value="20260218081730"/>
+                </effectiveTime>
+                <recordTarget typeCode="RCT">
+                    <patient classCode="PAT">
+                        <id extension="413569871" root="2.16.840.1.113883.2.7.4.1"/>
+                        <patientPerson>
+                            <name>Marko Marić</name>
+                        </patientPerson>
+                    </patient>
+                </recordTarget>
+                <author typeCode="AUT">
+                    <assignedEntity>
+                        <id extension="DR-WBS-01" root="2.16.840.1.113883.2.7.5.1"/>
+                    </assignedEntity>
+                </author>
+                <reason>
+                    <observation classCode="OBS" moodCode="EVN">
+                        <code code="DX" codeSystem="2.16.840.1.113883.2.7.6.1"/>
+                        <value code="A00" codeSystem="2.16.840.1.113883.6.3"/>
+                    </observation>
+                </reason>
+            </referral>
+        </subject>
+    </controlActProcess>
+</POLB_IN990031>
+DB: Referral created and sent successfully: 096e50a5-c1f2-405c-9830-3c92cf00a988
+2026-02-18T08:17:32.297Z - GET /api/appointments
+2026-02-18T08:17:32.298Z - GET /api/appointments
+2026-02-18T08:17:39.917Z - GET /api/insurance/extended/413569871
+CEZIH: OsigInfo lookup for MBO 413569871...
+2026-02-18T08:17:39.928Z - GET /api/referrals/patient/413569871
+Searching referrals for MBO: 413569871 Dept Filter: undefined [UNIQUE_TAG_V2]
+2026-02-18T08:17:42.071Z - POST /api/appointments
+=== APPOINTMENT CREATION REQUEST ===
+patientMbo: 413569871 type: string length: 9
+referralId: 096e50a5-c1f2-405c-9830-3c92cf00a988 type: string
+startTime: 2026-02-18T06:15:00.000Z
+endTime: 2026-02-18T06:30:00.000Z
+CEZIH: OsigInfo lookup for MBO 413569871...
+2026-02-18T08:17:42.085Z - GET /api/appointments
+2026-02-18T08:18:12.060Z - GET /api/appointments
+2026-02-18T08:18:50.657Z - GET /api/appointments
+2026-02-18T08:18:50.691Z - GET /api/appointments
+2026-02-18T08:21:39.477Z - GET /api/appointments
+2026-02-18T08:21:39.478Z - GET /api/appointments
+2026-02-18T08:23:26.377Z - GET /api/appointments
+2026-02-18T08:23:26.391Z - GET /api/appointments
+2026-02-18T08:23:32.603Z - GET /api/appointments
+2026-02-18T08:23:32.614Z - GET /api/appointments
+2026-02-18T08:25:28.592Z - GET /api/appointments
+2026-02-18T08:25:28.597Z - GET /api/appointments
+2026-02-18T08:25:28.713Z - GET /api/appointments
+2026-02-18T08:26:12.199Z - GET /api/appointments
+2026-02-18T08:26:12.208Z - GET /api/appointments
+2026-02-18T08:26:12.222Z - GET /api/appointments
+2026-02-18T08:26:16.637Z - GET /api/appointments
+2026-02-18T08:26:16.638Z - GET /api/appointments
+2026-02-18T08:26:16.696Z - GET /api/appointments
+2026-02-18T08:27:24.840Z - GET /api/dashboard
+2026-02-18T08:27:24.845Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:27:24.847Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:27:24.848Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:27:24.849Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:27:24.854Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:27:24.860Z - GET /api/cezih/messages
+2026-02-18T08:27:24.907Z - GET /api/cezih/messages
+2026-02-18T08:27:29.834Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:27:29.835Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:27:29.866Z - GET /api/cezih/messages
+2026-02-18T08:27:34.834Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:27:34.835Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:27:34.875Z - GET /api/cezih/messages
+2026-02-18T08:27:39.835Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:27:39.836Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:27:39.869Z - GET /api/cezih/messages
+2026-02-18T08:27:44.334Z - GET /api/appointments
+2026-02-18T08:27:44.335Z - GET /api/appointments
+2026-02-18T08:29:09.433Z - POST /api/appointments/d191f852-cce6-4540-8aca-88bd113a6dc8/sync
+SK: Attempting to sync appointment d191f852-cce6-4540-8aca-88bd113a6dc8 with Central System...
+REST: POST https://sk.cezih.hr/api/v1/appointments ... RECEIVED 201 Created (ID: SK-755444)
+SK: eReferral 096e50a5-c1f2-405c-9830-3c92cf00a988 status transitioned to REZERVIRANA
+2026-02-18T08:29:09.455Z - GET /api/appointments
+2026-02-18T08:29:23.713Z - PATCH /api/appointments/d191f852-cce6-4540-8aca-88bd113a6dc8
+CEZIH: Appointment completed. Triggering takeover (U OBRADI) for referral 096e50a5-c1f2-405c-9830-3c92cf00a988
+CEZIH: Atomic Takeover for Referral 096e50a5-c1f2-405c-9830-3c92cf00a988...
+Trace: takeoverReferral called from:
+    at CezihService.takeoverReferral (/Users/ivanprpic/.gemini/antigravity/scratch/cezih_v2/apps/api/src/services/cezih.service.ts:574:17)
+    at <anonymous> (/Users/ivanprpic/.gemini/antigravity/scratch/cezih_v2/apps/api/src/routes/api.routes.ts:421:36)
+Generated HL7 XML (POLB_IN990029):
+ <POLB_IN990029 xmlns="urn:hl7-org:v3">
+    <id extension="MSG-TKO-1771403363727" root="2.16.840.1.113883.2.7.1.1"/>
+    <creationTime value="20260218082923"/>
+    <interactionId extension="POLB_IN990029" root="2.16.840.1.113883.1.6"/>
+    <controlActProcess classCode="ACTN" moodCode="EVN">
+        <subject typeCode="SUBJ">
+            <takeoverRequest classCode="ACT" moodCode="RQO">
+                <id extension="096e50a5-c1f2-405c-9830-3c92cf00a988" root="2.16.840.1.113883.2.7.3.1"/>
+                <performer typeCode="PRF">
+                    <assignedEntity>
+                        <id extension="DR-UNKNOWN" root="2.16.840.1.113883.2.7.5.1"/>
+                        <representedOrganization>
+                            <id extension="ORG-UNKNOWN" root="2.16.840.1.113883.2.7.5.2"/>
+                        </representedOrganization>
+                    </assignedEntity>
+                </performer>
+            </takeoverRequest>
+        </subject>
+    </controlActProcess>
+</POLB_IN990029>
+2026-02-18T08:29:23.739Z - GET /api/appointments
+2026-02-18T08:29:29.178Z - GET /api/dashboard
+2026-02-18T08:29:29.179Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:29:29.179Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:29:29.180Z - GET /api/dashboard
+2026-02-18T08:29:29.180Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:29:29.181Z - GET /api/codebooks/insurance-categories
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:29:29.195Z - GET /api/cezih/messages
+2026-02-18T08:29:29.249Z - GET /api/cezih/messages
+2026-02-18T08:29:34.178Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:29:34.179Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:29:34.211Z - GET /api/cezih/messages
+2026-02-18T08:29:39.258Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:29:39.259Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:29:39.309Z - GET /api/cezih/messages
+2026-02-18T08:29:44.309Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:29:44.309Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:29:44.345Z - GET /api/cezih/messages
+2026-02-18T08:29:46.206Z - GET /api/dashboard
+2026-02-18T08:29:46.206Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:29:46.207Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:29:46.211Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:29:46.212Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:29:46.212Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:29:46.224Z - GET /api/cezih/messages
+2026-02-18T08:29:46.273Z - GET /api/cezih/messages
+2026-02-18T08:29:46.951Z - GET /api/appointments
+2026-02-18T08:29:46.952Z - GET /api/appointments
+2026-02-18T08:29:49.412Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:29:49.413Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:29:49.462Z - GET /api/cezih/messages
+2026-02-18T08:29:54.512Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:29:54.514Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:29:54.558Z - GET /api/cezih/messages
+2026-02-18T08:29:59.608Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:29:59.609Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:29:59.650Z - GET /api/cezih/messages
+2026-02-18T08:30:00.244Z - GET /api/appointments
+2026-02-18T08:30:00.245Z - GET /api/appointments
+2026-02-18T08:30:06.692Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:30:06.693Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:30:06.716Z - GET /api/cezih/messages
+2026-02-18T08:30:11.692Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:30:11.694Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:30:11.723Z - GET /api/cezih/messages
+2026-02-18T08:30:16.696Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:30:16.698Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:30:16.721Z - GET /api/cezih/messages
+2026-02-18T08:30:21.695Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:30:21.697Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:30:21.725Z - GET /api/cezih/messages
+2026-02-18T08:30:26.806Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:30:26.807Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:30:26.856Z - GET /api/cezih/messages
+2026-02-18T08:30:33.177Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:30:33.178Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:30:33.286Z - GET /api/cezih/messages
+2026-02-18T08:30:36.679Z - GET /api/appointments
+2026-02-18T08:30:36.679Z - GET /api/appointments
+2026-02-18T08:30:39.527Z - GET /api/dashboard
+2026-02-18T08:30:39.528Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:30:39.574Z - GET /api/cezih/messages
+2026-02-18T08:30:47.820Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:30:47.821Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:30:47.862Z - GET /api/cezih/messages
+2026-02-18T08:31:09.109Z - GET /api/dashboard
+2026-02-18T08:31:09.110Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:31:09.161Z - GET /api/cezih/messages
+2026-02-18T08:31:24.980Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:31:24.981Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:31:25.022Z - GET /api/cezih/messages
+2026-02-18T08:31:58.470Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:31:58.471Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:31:58.517Z - GET /api/cezih/messages
+2026-02-18T08:32:33.742Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:32:33.743Z - GET /api/appointments
+2026-02-18T08:32:33.743Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:32:33.743Z - GET /api/appointments
+2026-02-18T08:32:45.095Z - GET /api/dashboard
+2026-02-18T08:32:45.097Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:32:45.208Z - GET /api/cezih/messages
+2026-02-18T08:32:53.590Z - GET /api/dashboard
+2026-02-18T08:32:53.591Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:32:53.617Z - GET /api/cezih/messages
+2026-02-18T08:32:58.687Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:32:58.687Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:32:58.734Z - GET /api/cezih/messages
+2026-02-18T08:33:04.453Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:33:04.454Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:33:04.494Z - GET /api/cezih/messages
+2026-02-18T08:33:15.037Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:33:15.038Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:33:15.088Z - GET /api/cezih/messages
+2026-02-18T08:33:32.301Z - GET /api/dashboard
+2026-02-18T08:33:32.301Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:33:32.323Z - GET /api/cezih/messages
+2026-02-18T08:34:52.403Z - GET /api/dashboard
+2026-02-18T08:34:52.404Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:34:52.406Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:34:52.407Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:34:52.408Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:34:52.409Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:34:52.415Z - GET /api/cezih/messages
+2026-02-18T08:34:52.453Z - GET /api/cezih/messages
+2026-02-18T08:34:57.517Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:34:57.518Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:34:57.568Z - GET /api/cezih/messages
+2026-02-18T08:35:02.608Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:35:02.608Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:35:02.669Z - GET /api/cezih/messages
+2026-02-18T08:35:07.706Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:35:07.707Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:35:07.863Z - GET /api/cezih/messages
+2026-02-18T08:35:12.809Z - GET /api/dashboard
+2026-02-18T08:35:12.810Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:35:12.855Z - GET /api/cezih/messages
+2026-02-18T08:35:17.907Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:35:17.908Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:35:17.948Z - GET /api/cezih/messages
+2026-02-18T08:35:23.010Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:35:23.012Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:35:23.051Z - GET /api/cezih/messages
+2026-02-18T08:35:39.886Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:35:39.887Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:35:39.929Z - GET /api/cezih/messages
+2026-02-18T08:36:12.097Z - GET /api/dashboard
+2026-02-18T08:36:12.097Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:36:12.141Z - GET /api/cezih/messages
+2026-02-18T08:36:36.716Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:36:36.717Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:36:36.758Z - GET /api/cezih/messages
+2026-02-18T08:37:46.894Z - GET /api/dashboard
+2026-02-18T08:37:46.895Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:37:46.998Z - GET /api/cezih/messages
+2026-02-18T08:39:36.231Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:39:36.232Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:39:36.271Z - GET /api/cezih/messages
+2026-02-18T08:41:10.198Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:10.218Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:41:10.219Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:41:10.220Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:41:10.221Z - GET /api/dashboard
+2026-02-18T08:41:10.223Z - GET /api/codebooks/insurance-categories
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:10.248Z - GET /api/cezih/messages
+2026-02-18T08:41:10.248Z - GET /api/cezih/messages
+2026-02-18T08:41:11.749Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:41:11.750Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:11.771Z - GET /api/cezih/messages
+2026-02-18T08:41:12.087Z - GET /api/dashboard
+2026-02-18T08:41:12.088Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:41:12.089Z - GET /api/dashboard
+2026-02-18T08:41:12.089Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:41:12.090Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:41:12.090Z - GET /api/codebooks/insurance-categories
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:12.101Z - GET /api/cezih/messages
+2026-02-18T08:41:12.151Z - GET /api/cezih/messages
+2026-02-18T08:41:15.197Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:41:15.197Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:15.229Z - GET /api/cezih/messages
+2026-02-18T08:41:15.469Z - GET /api/appointments
+2026-02-18T08:41:15.469Z - GET /api/appointments
+2026-02-18T08:41:17.121Z - GET /api/dashboard
+2026-02-18T08:41:17.122Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:17.220Z - GET /api/cezih/messages
+2026-02-18T08:41:22.132Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:41:22.133Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:22.180Z - GET /api/cezih/messages
+2026-02-18T08:41:27.218Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:41:27.219Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:27.260Z - GET /api/cezih/messages
+2026-02-18T08:41:32.317Z - GET /api/dashboard
+2026-02-18T08:41:32.317Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:32.358Z - GET /api/cezih/messages
+2026-02-18T08:41:37.418Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:41:37.419Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:37.464Z - GET /api/cezih/messages
+2026-02-18T08:41:42.518Z - GET /api/dashboard
+2026-02-18T08:41:42.519Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:42.563Z - GET /api/cezih/messages
+2026-02-18T08:41:53.152Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:41:53.153Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:41:53.196Z - GET /api/cezih/messages
+2026-02-18T08:42:02.766Z - GET /api/dashboard
+2026-02-18T08:42:02.767Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:42:02.811Z - GET /api/cezih/messages
+2026-02-18T08:42:12.164Z - GET /api/appointments
+2026-02-18T08:42:25.673Z - GET /api/appointments
+2026-02-18T08:42:25.694Z - GET /api/appointments
+2026-02-18T08:42:35.899Z - GET /api/dashboard
+2026-02-18T08:42:35.900Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:42:35.934Z - GET /api/cezih/messages
+2026-02-18T08:42:41.313Z - GET /api/appointments
+2026-02-18T08:42:41.332Z - GET /api/appointments
+2026-02-18T08:43:01.207Z - GET /api/appointments
+2026-02-18T08:43:01.208Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:43:01.214Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:43:01.223Z - GET /api/appointments
+2026-02-18T08:43:07.556Z - GET /api/appointments
+2026-02-18T08:43:07.570Z - GET /api/appointments
+2026-02-18T08:43:24.969Z - GET /api/dashboard
+2026-02-18T08:43:24.969Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:43:24.981Z - GET /api/cezih/messages
+2026-02-18T08:43:44.740Z - GET /api/appointments
+2026-02-18T08:43:44.755Z - GET /api/appointments
+2026-02-18T08:43:50.356Z - GET /api/appointments
+2026-02-18T08:43:50.356Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:43:50.359Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:43:50.370Z - GET /api/appointments
+2026-02-18T08:44:07.672Z - GET /api/appointments
+2026-02-18T08:44:07.687Z - GET /api/appointments
+2026-02-18T08:44:14.222Z - GET /api/appointments
+2026-02-18T08:44:14.233Z - GET /api/appointments
+2026-02-18T08:44:31.318Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:44:31.318Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:44:31.357Z - GET /api/cezih/messages
+2026-02-18T08:45:21.815Z - GET /api/dashboard
+2026-02-18T08:45:21.816Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:45:21.865Z - GET /api/cezih/messages
+2026-02-18T08:45:32.623Z - GET /api/appointments
+2026-02-18T08:45:32.638Z - GET /api/appointments
+2026-02-18T08:45:39.449Z - GET /api/appointments
+2026-02-18T08:45:39.450Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:45:39.453Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:45:39.460Z - GET /api/appointments
+2026-02-18T08:45:45.856Z - GET /api/appointments
+2026-02-18T08:45:45.864Z - GET /api/appointments
+2026-02-18T08:46:09.228Z - POST /api/appointments
+=== APPOINTMENT CREATION REQUEST ===
+patientMbo: 987654321 type: string length: 9
+referralId: undefined type: undefined
+startTime: 2026-02-18T10:00:00.000Z
+endTime: 2026-02-18T10:15:00.000Z
+CEZIH: OsigInfo lookup for MBO 987654321...
+2026-02-18T08:46:11.890Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:11.891Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:46:11.906Z - GET /api/cezih/messages
+2026-02-18T08:46:12.718Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:12.718Z - GET /api/dashboard
+2026-02-18T08:46:12.718Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:12.718Z - GET /api/dashboard
+2026-02-18T08:46:12.719Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:46:12.719Z - GET /api/codebooks/insurance-categories
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:46:12.728Z - GET /api/cezih/messages
+2026-02-18T08:46:12.729Z - GET /api/cezih/messages
+2026-02-18T08:46:17.665Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:17.666Z - GET /api/appointments
+2026-02-18T08:46:17.666Z - GET /api/appointments
+2026-02-18T08:46:17.666Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:21.068Z - GET /api/appointments
+2026-02-18T08:46:21.068Z - GET /api/appointments
+2026-02-18T08:46:22.554Z - GET /api/appointments
+2026-02-18T08:46:22.561Z - GET /api/appointments
+2026-02-18T08:46:25.886Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:46:25.895Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:25.896Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:46:25.896Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:25.897Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:46:25.898Z - GET /api/dashboard
+2026-02-18T08:46:25.902Z - GET /api/cezih/messages
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:46:25.946Z - GET /api/cezih/messages
+2026-02-18T08:46:30.904Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:30.905Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:46:30.970Z - GET /api/cezih/messages
+2026-02-18T08:46:35.892Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:35.892Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:46:35.915Z - GET /api/cezih/messages
+2026-02-18T08:46:40.895Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:40.895Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:46:40.920Z - GET /api/cezih/messages
+2026-02-18T08:46:45.897Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:45.897Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:46:45.919Z - GET /api/cezih/messages
+2026-02-18T08:46:50.898Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:50.898Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:46:50.921Z - GET /api/cezih/messages
+2026-02-18T08:46:55.899Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:46:55.901Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:46:55.923Z - GET /api/cezih/messages
+2026-02-18T08:47:00.903Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:47:00.904Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:47:00.932Z - GET /api/cezih/messages
+2026-02-18T08:47:05.386Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:47:05.387Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:47:05.388Z - GET /api/appointments
+2026-02-18T08:47:05.388Z - GET /api/appointments
+2026-02-18T08:47:06.926Z - GET /api/appointments
+2026-02-18T08:47:06.926Z - GET /api/appointments
+2026-02-18T08:47:07.665Z - GET /api/appointments
+2026-02-18T08:47:07.688Z - GET /api/appointments
+2026-02-18T08:47:17.441Z - GET /api/appointments
+2026-02-18T08:47:17.461Z - GET /api/appointments
+2026-02-18T08:47:42.801Z - GET /api/appointments
+2026-02-18T08:47:42.818Z - GET /api/appointments
+2026-02-18T08:47:47.679Z - GET /api/dashboard
+2026-02-18T08:47:47.679Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:47:47.681Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:47:47.685Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:47:47.686Z - GET /api/codebooks/insurance-categories
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:47:47.694Z - GET /api/dashboard
+2026-02-18T08:47:47.696Z - GET /api/cezih/messages
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:47:47.724Z - GET /api/cezih/messages
+2026-02-18T08:47:52.671Z - GET /api/dashboard
+2026-02-18T08:47:52.671Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:47:52.682Z - GET /api/cezih/messages
+2026-02-18T08:47:57.672Z - GET /api/dashboard
+2026-02-18T08:47:57.672Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:47:57.682Z - GET /api/cezih/messages
+2026-02-18T08:48:00.455Z - GET /api/appointments
+2026-02-18T08:48:00.465Z - GET /api/appointments
+2026-02-18T08:48:02.672Z - GET /api/dashboard
+2026-02-18T08:48:02.672Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:02.681Z - GET /api/cezih/messages
+2026-02-18T08:48:07.672Z - GET /api/dashboard
+2026-02-18T08:48:07.672Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:07.681Z - GET /api/cezih/messages
+2026-02-18T08:48:12.672Z - GET /api/dashboard
+2026-02-18T08:48:12.672Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:12.683Z - GET /api/cezih/messages
+2026-02-18T08:48:17.675Z - GET /api/dashboard
+2026-02-18T08:48:17.675Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:17.687Z - GET /api/cezih/messages
+2026-02-18T08:48:22.674Z - GET /api/dashboard
+2026-02-18T08:48:22.674Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:22.687Z - GET /api/cezih/messages
+2026-02-18T08:48:27.674Z - GET /api/dashboard
+2026-02-18T08:48:27.675Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:27.685Z - GET /api/cezih/messages
+2026-02-18T08:48:32.673Z - GET /api/dashboard
+2026-02-18T08:48:32.673Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:32.683Z - GET /api/cezih/messages
+2026-02-18T08:48:37.674Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:48:37.674Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:37.692Z - GET /api/cezih/messages
+2026-02-18T08:48:42.678Z - GET /api/dashboard
+2026-02-18T08:48:42.679Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:42.699Z - GET /api/cezih/messages
+2026-02-18T08:48:47.677Z - GET /api/dashboard
+2026-02-18T08:48:47.677Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:47.701Z - GET /api/cezih/messages
+2026-02-18T08:48:52.676Z - GET /api/dashboard
+2026-02-18T08:48:52.676Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:52.693Z - GET /api/cezih/messages
+2026-02-18T08:48:57.675Z - GET /api/dashboard
+2026-02-18T08:48:57.676Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:48:57.700Z - GET /api/cezih/messages
+2026-02-18T08:49:02.678Z - GET /api/dashboard
+2026-02-18T08:49:02.679Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:02.702Z - GET /api/cezih/messages
+2026-02-18T08:49:07.679Z - GET /api/dashboard
+2026-02-18T08:49:07.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:07.702Z - GET /api/cezih/messages
+2026-02-18T08:49:12.069Z - GET /api/appointments
+2026-02-18T08:49:12.085Z - GET /api/appointments
+2026-02-18T08:49:12.676Z - GET /api/dashboard
+2026-02-18T08:49:12.677Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:12.699Z - GET /api/cezih/messages
+2026-02-18T08:49:17.674Z - GET /api/dashboard
+2026-02-18T08:49:17.675Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:17.696Z - GET /api/cezih/messages
+2026-02-18T08:49:21.346Z - GET /api/appointments
+2026-02-18T08:49:21.347Z - GET /api/appointments
+2026-02-18T08:49:22.675Z - GET /api/dashboard
+2026-02-18T08:49:22.675Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:22.698Z - GET /api/cezih/messages
+2026-02-18T08:49:26.789Z - GET /api/appointments
+2026-02-18T08:49:26.789Z - GET /api/appointments
+2026-02-18T08:49:27.675Z - GET /api/dashboard
+2026-02-18T08:49:27.675Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:27.696Z - GET /api/cezih/messages
+2026-02-18T08:49:31.152Z - POST /api/findings
+2026-02-18T08:49:31.163Z - POST /api/findings/a1a2c566-ae42-4797-ba2d-dd244dfc1129/send
+CEZIH: Sending Specialist Finding (Nalaz)... a1a2c566-ae42-4797-ba2d-dd244dfc1129
+CEZIH: Finding sent. Triggering realization (REALIZIRANA) for referral 096e50a5-c1f2-405c-9830-3c92cf00a988
+CEZIH: Realizing referral 096e50a5-c1f2-405c-9830-3c92cf00a988 for encounter a1a2c566-ae42-4797-ba2d-dd244dfc1129...
+2026-02-18T08:49:32.438Z - GET /api/appointments
+2026-02-18T08:49:32.438Z - GET /api/appointments
+2026-02-18T08:49:32.675Z - GET /api/dashboard
+2026-02-18T08:49:32.675Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:32.696Z - GET /api/cezih/messages
+2026-02-18T08:49:34.764Z - GET /api/dashboard
+2026-02-18T08:49:34.765Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:49:34.766Z - GET /api/dashboard
+2026-02-18T08:49:34.766Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:49:34.767Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:49:34.769Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:34.783Z - GET /api/cezih/messages
+2026-02-18T08:49:34.826Z - GET /api/cezih/messages
+2026-02-18T08:49:37.675Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:49:37.676Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:37.695Z - GET /api/cezih/messages
+2026-02-18T08:49:39.761Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:49:39.763Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:39.787Z - GET /api/cezih/messages
+2026-02-18T08:49:42.448Z - GET /api/appointments
+2026-02-18T08:49:42.448Z - GET /api/appointments
+2026-02-18T08:49:42.676Z - GET /api/dashboard
+2026-02-18T08:49:42.676Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:42.696Z - GET /api/cezih/messages
+2026-02-18T08:49:47.164Z - POST /api/appointments/d191f852-cce6-4540-8aca-88bd113a6dc8/invoice
+2026-02-18T08:49:47.177Z - GET /api/appointments
+2026-02-18T08:49:47.677Z - GET /api/dashboard
+2026-02-18T08:49:47.678Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:47.700Z - GET /api/cezih/messages
+2026-02-18T08:49:52.678Z - GET /api/dashboard
+2026-02-18T08:49:52.679Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:52.703Z - GET /api/cezih/messages
+2026-02-18T08:49:57.678Z - GET /api/dashboard
+2026-02-18T08:49:57.679Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:49:57.701Z - GET /api/cezih/messages
+2026-02-18T08:50:02.676Z - GET /api/dashboard
+2026-02-18T08:50:02.676Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:02.697Z - GET /api/cezih/messages
+2026-02-18T08:50:07.677Z - GET /api/dashboard
+2026-02-18T08:50:07.677Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:07.698Z - GET /api/cezih/messages
+2026-02-18T08:50:12.677Z - GET /api/dashboard
+2026-02-18T08:50:12.677Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:12.697Z - GET /api/cezih/messages
+2026-02-18T08:50:17.679Z - GET /api/dashboard
+2026-02-18T08:50:17.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:17.700Z - GET /api/cezih/messages
+2026-02-18T08:50:22.679Z - GET /api/dashboard
+2026-02-18T08:50:22.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:22.702Z - GET /api/cezih/messages
+2026-02-18T08:50:27.676Z - GET /api/dashboard
+2026-02-18T08:50:27.676Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:27.699Z - GET /api/cezih/messages
+2026-02-18T08:50:32.679Z - GET /api/dashboard
+2026-02-18T08:50:32.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:32.703Z - GET /api/cezih/messages
+2026-02-18T08:50:37.675Z - GET /api/dashboard
+2026-02-18T08:50:37.675Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:37.692Z - GET /api/cezih/messages
+2026-02-18T08:50:37.771Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:37.778Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:50:37.778Z - GET /api/codebooks/insurance-categories
+2026-02-18T08:50:37.779Z - GET /api/dashboard
+2026-02-18T08:50:37.780Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:50:37.781Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:50:37.785Z - GET /api/cezih/messages
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:37.828Z - GET /api/cezih/messages
+2026-02-18T08:50:42.679Z - GET /api/dashboard
+2026-02-18T08:50:42.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:42.701Z - GET /api/cezih/messages
+2026-02-18T08:50:42.765Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:50:42.766Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:42.792Z - GET /api/cezih/messages
+2026-02-18T08:50:47.270Z - GET /api/insurance/extended/413569871
+CEZIH: OsigInfo lookup for MBO 413569871...
+2026-02-18T08:50:47.679Z - GET /api/dashboard
+2026-02-18T08:50:47.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:47.702Z - GET /api/cezih/messages
+2026-02-18T08:50:47.767Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:50:47.768Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:47.794Z - GET /api/cezih/messages
+2026-02-18T08:50:52.678Z - GET /api/dashboard
+2026-02-18T08:50:52.678Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:52.701Z - GET /api/cezih/messages
+2026-02-18T08:50:52.768Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:50:52.768Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:52.800Z - GET /api/cezih/messages
+2026-02-18T08:50:55.979Z - GET /api/findings/a1a2c566-ae42-4797-ba2d-dd244dfc1129/fhir
+2026-02-18T08:50:57.683Z - GET /api/dashboard
+2026-02-18T08:50:57.685Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:57.704Z - GET /api/cezih/messages
+2026-02-18T08:50:57.767Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:50:57.767Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:50:57.804Z - GET /api/cezih/messages
+2026-02-18T08:51:02.680Z - GET /api/dashboard
+2026-02-18T08:51:02.681Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:02.703Z - GET /api/cezih/messages
+2026-02-18T08:51:02.768Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:51:02.768Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:02.793Z - GET /api/cezih/messages
+2026-02-18T08:51:03.735Z - GET /api/appointments
+2026-02-18T08:51:03.736Z - GET /api/appointments
+2026-02-18T08:51:04.273Z - GET /api/appointments
+2026-02-18T08:51:04.377Z - GET /api/appointments
+2026-02-18T08:51:07.678Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:51:07.679Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:07.696Z - GET /api/cezih/messages
+2026-02-18T08:51:12.678Z - GET /api/dashboard
+2026-02-18T08:51:12.679Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:12.699Z - GET /api/cezih/messages
+2026-02-18T08:51:17.679Z - GET /api/dashboard
+2026-02-18T08:51:17.679Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:17.701Z - GET /api/cezih/messages
+2026-02-18T08:51:22.678Z - GET /api/dashboard
+2026-02-18T08:51:22.678Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:22.698Z - GET /api/cezih/messages
+2026-02-18T08:51:27.679Z - GET /api/dashboard
+2026-02-18T08:51:27.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:27.699Z - GET /api/cezih/messages
+2026-02-18T08:51:32.679Z - GET /api/dashboard
+2026-02-18T08:51:32.679Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:32.698Z - GET /api/cezih/messages
+2026-02-18T08:51:37.681Z - GET /api/dashboard
+2026-02-18T08:51:37.681Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:37.704Z - GET /api/cezih/messages
+2026-02-18T08:51:42.682Z - GET /api/dashboard
+2026-02-18T08:51:42.682Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:42.703Z - GET /api/cezih/messages
+2026-02-18T08:51:47.681Z - GET /api/dashboard
+2026-02-18T08:51:47.681Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:47.703Z - GET /api/cezih/messages
+2026-02-18T08:51:52.681Z - GET /api/dashboard
+2026-02-18T08:51:52.681Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:52.704Z - GET /api/cezih/messages
+2026-02-18T08:51:57.682Z - GET /api/dashboard
+2026-02-18T08:51:57.682Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:51:57.709Z - GET /api/cezih/messages
+2026-02-18T08:52:02.679Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:52:02.680Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:02.701Z - GET /api/cezih/messages
+2026-02-18T08:52:07.681Z - GET /api/dashboard
+2026-02-18T08:52:07.681Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:07.702Z - GET /api/cezih/messages
+2026-02-18T08:52:12.679Z - GET /api/dashboard
+2026-02-18T08:52:12.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:12.700Z - GET /api/cezih/messages
+2026-02-18T08:52:17.680Z - GET /api/dashboard
+2026-02-18T08:52:17.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:17.705Z - GET /api/cezih/messages
+2026-02-18T08:52:22.680Z - GET /api/dashboard
+2026-02-18T08:52:22.681Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:22.703Z - GET /api/cezih/messages
+2026-02-18T08:52:27.681Z - GET /api/dashboard
+2026-02-18T08:52:27.681Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:27.701Z - GET /api/cezih/messages
+2026-02-18T08:52:32.686Z - GET /api/dashboard
+2026-02-18T08:52:32.687Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:32.707Z - GET /api/cezih/messages
+2026-02-18T08:52:37.679Z - GET /api/dashboard
+2026-02-18T08:52:37.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:37.699Z - GET /api/cezih/messages
+2026-02-18T08:52:42.682Z - GET /api/dashboard
+2026-02-18T08:52:42.683Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:42.707Z - GET /api/cezih/messages
+2026-02-18T08:52:47.681Z - GET /api/dashboard
+2026-02-18T08:52:47.682Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:47.704Z - GET /api/cezih/messages
+2026-02-18T08:52:52.684Z - GET /api/dashboard
+2026-02-18T08:52:52.684Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:52.706Z - GET /api/cezih/messages
+2026-02-18T08:52:57.680Z - GET /api/dashboard
+2026-02-18T08:52:57.681Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:52:57.700Z - GET /api/cezih/messages
+2026-02-18T08:53:02.682Z - GET /api/dashboard
+2026-02-18T08:53:02.682Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:53:02.704Z - GET /api/cezih/messages
+2026-02-18T08:53:07.682Z - GET /api/dashboard
+2026-02-18T08:53:07.682Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:53:07.703Z - GET /api/cezih/messages
+2026-02-18T08:53:12.682Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+2026-02-18T08:53:12.682Z - GET /api/dashboard
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:53:12.702Z - GET /api/cezih/messages
+2026-02-18T08:53:17.684Z - GET /api/dashboard
+2026-02-18T08:53:17.684Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:53:17.707Z - GET /api/cezih/messages
+2026-02-18T08:53:22.681Z - GET /api/dashboard
+2026-02-18T08:53:22.682Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:53:22.703Z - GET /api/cezih/messages
+2026-02-18T08:53:27.679Z - GET /api/dashboard
+2026-02-18T08:53:27.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:53:27.701Z - GET /api/cezih/messages
+2026-02-18T08:53:32.680Z - GET /api/dashboard
+2026-02-18T08:53:32.680Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:53:32.700Z - GET /api/cezih/messages
+2026-02-18T08:53:37.682Z - GET /api/dashboard
+2026-02-18T08:53:37.683Z - GET /api/appointments/sk/status
+SK: Checking HTTPS connectivity to Central Calendar (Level 2 Compliance)...
+SK: HTTPS connection to sk.cezih.hr ... OK (200)
+DASHBOARD: Returning 41 referrals (Filtered by: ALL)
+2026-02-18T08:53:37.707Z - GET /api/cezih/messages

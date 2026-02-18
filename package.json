@@ -1,0 +1,21 @@
+{
+    "name": "cezih-healthcare-system",
+    "version": "1.0.0",
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
+    "scripts": {
+        "dev:api": "npm run dev --workspace=apps/api",
+        "dev:web": "npm run dev --workspace=apps/web",
+        "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+        "build": "npm run build --workspaces",
+        "db:generate": "npm run generate --workspace=packages/database",
+        "db:migrate": "npm run migrate --workspace=packages/database"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2",
+        "typescript": "^5.3.3"
+    }
+}
